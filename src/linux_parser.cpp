@@ -8,6 +8,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <iostream>
 
 using std::stof;
 using std::string;
@@ -71,8 +72,33 @@ vector<int> LinuxParser::Pids() {
   return pids;
 }
 
-// TODO: Read and return the system memory utilization
-float LinuxParser::MemoryUtilization() { return 0.0; }
+// DONE: Read and return the system memory utilization
+float LinuxParser::MemoryUtilization() {
+  float memory_utilization_kB{0.0};
+  std::vector<int> pids = LinuxParser::Pids();
+  std::string line;
+  std::string key;
+  std::string value;
+
+  for (const int pid : pids)
+  {
+    std::ifstream stream(kProcDirectory + std::to_string(pid) + kStatusFilename);
+      if (stream.is_open()) {
+        while(std::getline(stream,line)) {
+          std::replace(line.begin(), line.end(), ' ', '_');
+          std::replace(line.begin(), line.end(), ':', ' ');
+          std::istringstream linestream(line);
+          while(linestream >> key >> value) {
+            if (key == "VmSize") {
+              std::replace(value.begin(), value.end(), '_',' ');
+              memory_utilization_kB += static_cast<float>(std::stoi(value));
+            }
+          }
+        }
+      }
+  }
+  return (memory_utilization_kB * 1e-3);
+}
 
 // TODO: Read and return the system uptime
 long LinuxParser::UpTime() { return 0; }
