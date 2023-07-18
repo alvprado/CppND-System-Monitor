@@ -8,7 +8,6 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <iostream>
 
 using std::stof;
 using std::string;
