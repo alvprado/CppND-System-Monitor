@@ -10,7 +10,6 @@
 #include <vector>
 
 using std::string;
-using std::to_string;
 using std::vector;
 using Directory = std::filesystem::directory_entry;
 using Path = std::filesystem::path;
