@@ -9,7 +9,6 @@
 #include <string>
 #include <vector>
 
-using std::stof;
 using std::string;
 using std::to_string;
 using std::vector;
