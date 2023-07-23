@@ -10,7 +10,6 @@
 #include <vector>
 
 using std::string;
-using std::vector;
 using Directory = std::filesystem::directory_entry;
 using Path = std::filesystem::path;
 
@@ -51,8 +50,8 @@ string LinuxParser::Kernel() {
 }
 
 // BONUS DONE: Update this to use std::filesystem
-vector<int> LinuxParser::Pids() {
-  vector<int> pids;
+std::vector<int> LinuxParser::Pids() {
+  std::vector<int> pids;
   Path proc_path = kProcDirectory;
   Directory proc_dir(proc_path);
 
@@ -155,7 +154,7 @@ long LinuxParser::IdleJiffies() {
 }
 
 // DONE: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() {
+std::vector<string> LinuxParser::CpuUtilization() {
   std::vector<std::string> cpu_utilization;
   std::string line, cpu_name, cpu_process_time;
   std::ifstream stream(kProcDirectory + kStatFilename);
